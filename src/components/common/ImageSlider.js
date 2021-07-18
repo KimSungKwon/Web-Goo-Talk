@@ -18,7 +18,7 @@ const ImageSliderBlock = styled.div`
 const ImageSlider = () => {
     return (
         <ImageSliderBlock>
-            <Carousel fade controls={true} interval={4000} pause={false} prevLabel={null} nextLabel={null}>
+            <Carousel fade controls={false} interval={4000} pause={false}>
                 <Carousel.Item>
                     <img
                     width={900}
