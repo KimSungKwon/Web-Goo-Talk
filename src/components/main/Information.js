@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ImageSlider from '../common/ImageSlider'
 import { Button } from 'react-bootstrap'
 import styled from 'styled-components'
+import Modals from '../common/Modals';
 
 const InformationBlock = styled.div`
     display: flex;
@@ -22,13 +23,35 @@ const InformationBlock = styled.div`
     }
 `;
 
-const Information = () => {
+const Information = ({ user }) => {
+    const [ModalOn, setModalOn] = useState(false)
+    
+    const onHide = () => setModalOn(false);
+
+    useEffect(() =>{
+        console.log("Modal off");
+        setModalOn(false);
+    }, [user]);
+
     return (
-        <InformationBlock>
-            <div className="info_welcom">Get Started</div>
-            <ImageSlider />
-            <Button variant="outline-primary" className="info_Btn">지금 시작하기</Button>
-        </InformationBlock>
+        <>
+            <Modals 
+                show={ModalOn} 
+                onHide={onHide} 
+            />
+            <InformationBlock>
+                <div className="info_welcom">Get Started</div>
+                <ImageSlider />
+                <Button 
+                    size="lg"
+                    variant="outline-primary" 
+                    className="info_Btn"
+                    onClick={() => setModalOn(true)}
+                >
+                    지금 시작하기
+                </Button>
+            </InformationBlock>
+        </>
     )
 }
 
