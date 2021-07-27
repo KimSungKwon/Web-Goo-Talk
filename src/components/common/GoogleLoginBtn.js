@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { GoogleLogin } from 'react-google-login'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,10 +7,17 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
 const OauthKey = process.env.REACT_APP_OAUTH_KEY;
 
-const GoogleLoginBtn = () => {
+const GoogleLoginBtn = ({ onChangeUser }) => {
+    const history = useHistory();
 
     const onSuccess = (response) => {
         console.log(response)
+        const newUser = {
+            username: response.profileObj.name,
+            userId: response.profileObj.googleId
+        }
+        onChangeUser(newUser);
+        history.push('/#');
     }
 
     return (
