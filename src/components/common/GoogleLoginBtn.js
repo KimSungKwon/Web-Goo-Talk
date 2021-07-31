@@ -14,7 +14,9 @@ const GoogleLoginBtn = ({ onChangeUser }) => {
         console.log(response)
         const newUser = {
             username: response.profileObj.name,
-            userId: response.profileObj.googleId
+            userId: response.profileObj.googleId,
+            userImg: response.profileObj.imageUrl,
+            userEmail: response.profileObj.email,
         }
         onChangeUser(newUser);
         history.push('/#');
