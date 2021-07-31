@@ -12,7 +12,7 @@ const MainPage = () => {
 
     return (
         <Layout>
-            <Container style={{ minHeight: "75vh" }}>
+            <Container style={{ minHeight: "85vh" }}>
                 {user!==null ?
                     (<Lobby />)
                     :

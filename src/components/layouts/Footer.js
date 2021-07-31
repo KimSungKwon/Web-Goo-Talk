@@ -1,14 +1,19 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
+import styled from 'styled-components'
+
+const StyledContainer = styled(Container)`
+`;
+
 
 const Footer = () => {
     return (
         <footer>
-            <Container>
+            <StyledContainer>
                 <div style={{textAlign: "center"}}>
                     &copy; 2021 KimSungKwon, All Rights Reserved.
                 </div>
-            </Container>
+            </StyledContainer>
         </footer>
     )
 }
