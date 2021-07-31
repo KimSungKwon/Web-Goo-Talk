@@ -8,6 +8,13 @@ const FriendListBlock = styled.div`
     justify-content: space-between;
     width: 20%;
     min-width: 170px;
+    margin-right: 3rem;
+
+    overflow: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    
+    }
 `;
 
 const FriendItemBlock = styled.div`
@@ -16,6 +23,10 @@ const FriendItemBlock = styled.div`
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     margin: 6px 12px 6px 12px;
+
+    .friend-image {
+        margin-right: 1rem;
+    }
 `;
 
 const FriendItem = ({ name, image }) => {
