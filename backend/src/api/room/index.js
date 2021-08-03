@@ -1,5 +1,5 @@
-const Router = require('koa-router');
-const roomCtrl = require('./room.ctrl');
+import Router from 'koa-router';
+import * as roomCtrl from './room.ctrl';
 
 const room = new Router();
 
@@ -10,4 +10,4 @@ room.delete('/:id', roomCtrl.remove);   // 특정 대화방 삭제
 
 
 
-module.exports = room;
+export default room;

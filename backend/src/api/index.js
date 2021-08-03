@@ -1,9 +1,8 @@
-const Router = require('koa-router');
-
-const room = require('./room');
+import Router from 'koa-router';
+import room from './room';
 
 const api = new Router();
 
 api.use('/room', room.routes());
 
-module.exports = api;
+export default api;
