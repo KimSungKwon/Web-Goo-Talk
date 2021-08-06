@@ -26,6 +26,13 @@ export const register = async ctx => {
         const data = user.toJSON();
         ctx.body = data;
 
+        // Save JWT into cookies
+        const token = user.generateToken();
+        ctx.cookies.set('access_token', token, {
+            maxAge: 1000 * 60 & 60 * 24 * 7,     // 7 days
+            httpOnly: true
+        });
+
     } catch (e) {
         ctx.throw(500, e);
     }
@@ -39,7 +46,7 @@ export const register = async ctx => {
     }
 */
 export const login = async ctx => {
-    const { username, userId } = ctx.request.body;
+    const { userId } = ctx.request.body;
     
     try {
         const user = await User.findByUserId(userId);
@@ -50,6 +57,14 @@ export const login = async ctx => {
         }
 
         ctx.body = user;
+
+        // Save JWT into cookies
+        const token = user.generateToken();
+        ctx.cookies.set('access_token', token, {
+            maxAge: 1000 * 60 & 60 * 24 * 7,     // 7 days
+            httpOnly: true
+        });
+        
     } catch (e) {
         ctx.throw(500, e);
     }
