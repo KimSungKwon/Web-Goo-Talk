@@ -56,7 +56,8 @@ export const login = async ctx => {
             return;
         }
 
-        ctx.body = user;
+        const data = user.toJSON();
+        ctx.body = data;
 
         // Save JWT into cookies
         const token = user.generateToken();
@@ -68,4 +69,18 @@ export const login = async ctx => {
     } catch (e) {
         ctx.throw(500, e);
     }
+};
+
+/*
+    GET /api/auth/check
+*/
+export const check = async ctx => {
+    const { user } = ctx.state;
+    if (!user) {
+        ctx.status = 401;
+        return;
+    }
+    console.log(user);
+    ctx.body = user;
+};
 };
