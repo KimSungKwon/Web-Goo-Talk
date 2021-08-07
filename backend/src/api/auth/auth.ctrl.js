@@ -29,7 +29,7 @@ export const register = async ctx => {
         // Save JWT into cookies
         const token = user.generateToken();
         ctx.cookies.set('access_token', token, {
-            maxAge: 1000 * 60 & 60 * 24 * 7,     // 7 days
+            maxAge: 1000 * 60 * 60 * 24 * 7,     // 7 days
             httpOnly: true
         });
 
@@ -62,7 +62,7 @@ export const login = async ctx => {
         // Save JWT into cookies
         const token = user.generateToken();
         ctx.cookies.set('access_token', token, {
-            maxAge: 1000 * 60 & 60 * 24 * 7,     // 7 days
+            maxAge: 1000 * 60 * 60 * 24 * 7,     // 7 days
             httpOnly: true
         });
         
@@ -83,4 +83,11 @@ export const check = async ctx => {
     console.log(user);
     ctx.body = user;
 };
+
+/*
+    POST /api/auth/logout
+*/
+export const logout = async ctx => {
+    ctx.cookies.set('access_token');
+    ctx.status = 204;
 };
