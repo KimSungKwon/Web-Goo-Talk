@@ -74,11 +74,18 @@ export const create = async ctx => {
 
 /*
     대화방 목록 조회
-    GET /api/room
+    GET /api/room?username=
 */
 export const list = async ctx => {
+    const { username } = ctx.query;
+    const query = {
+        ...(username ? { 'creater.username': username } : {}),
+    }
+
     try {
-        const rooms = await Room.find().sort({ _id: -1 }).exec();    // reverse order
+        const rooms = await Room.find(query)
+            .sort({ _id: -1 })
+            .exec();    // reverse order
         ctx.body = rooms;
     
         // body의 길이가 100자 이상이면 내용 자르기
