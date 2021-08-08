@@ -26,6 +26,15 @@ export const getRoomById = async (ctx, next) => {
     }
 };
 
+export const checkOwnRoom = async (ctx, next) => {
+    const { user, room } = ctx.state;
+    if (room.creater._id.toString() !== user._id) {
+        ctx.status = 403;
+        return;
+    }
+    return next();
+}
+
 /*
     대화방 생성
     POST /api/room
@@ -37,7 +46,8 @@ export const create = async ctx => {
     const schema = Joi.object().keys({
         title: Joi.string().required(),
         body: Joi.string().required(),
-        users: Joi.array().items(Joi.string()).required()
+        users: Joi.array().items(Joi.string()).required(),
+        creater: ctx.state.user
     });
 
     const result = schema.validate(ctx.request.body);
@@ -52,6 +62,7 @@ export const create = async ctx => {
         title,
         body,
         users,
+        creater: ctx.state.user,
     });
     try {
         await room.save();

@@ -6,7 +6,10 @@ const RoomSchema = new Schema({
     title: String,
     body: String,
     users: [String],
-    // publishedData : {}
+    creater: {
+        _id: mongoose.Types.ObjectId,
+        username: String
+    }
 });
 
 const Room = mongoose.model('Room', RoomSchema);
