@@ -5,13 +5,25 @@ import Joi from '@hapi/joi';
 const { ObjectId } = mongoose.Types;
 
 // 요청 검증 미들웨어
-export const checkObjectId = (ctx, next) => {
+export const getRoomById = async (ctx, next) => {
     const { id } = ctx.params;
     if (!ObjectId.isValid(id)) {
         ctx.status = 400;   // Bad Request
         return ;
     }
-    return next();
+
+    try {
+        const room = await Room.findById(id);
+        // 방이 존재하지 않을 때
+        if (!room) {
+            ctx.status = 404;
+            return;
+        }
+        ctx.state.room = room;
+        return next();
+    } catch (e) {
+        ctx.throw(500, e);
+    }
 };
 
 /*
@@ -76,17 +88,7 @@ export const list = async ctx => {
     GET /api/room/:id
 */
 export const enter = async ctx => {
-    const { id } = ctx.params;
-    try {
-        const room = await Room.findById(id).exec();
-        if (!room) {
-            ctx.status = 404;
-            return;
-        }
-        ctx.body = room;
-    } catch (e) {
-        ctx.throw(500, e);
-    }
+    ctx.body = ctx.state.room;
 };
 
 /*
